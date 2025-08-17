@@ -1,0 +1,119 @@
+TKINTER
+
+
+Importar y ventana principal
+--------------------------------
+import tkinter as tk
+
+root = tk.Tk()                  # Crear ventana principal
+root.title("Mi App")            # Título de la ventana
+root.geometry("400x300")        # Tamaño ancho x alto
+root.resizable(False, False)    # No permitir redimensionar
+root.mainloop()                 # Bucle principal (debe ir al final)
+
+
+Widgets básicos
+--------------------------------
+label = tk.Label(root, text="Hola mundo")   # Etiqueta
+label.pack()
+
+boton = tk.Button(root, text="Haz click", command=lambda: print("Click!"))
+boton.pack()
+
+entrada = tk.Entry(root)        # Caja de texto (una línea)
+entrada.pack()
+
+texto = tk.Text(root, height=5, width=30)   # Caja de texto multilinea
+texto.pack()
+
+check = tk.Checkbutton(root, text="Aceptar")
+check.pack()
+
+radio1 = tk.Radiobutton(root, text="Opción 1", value=1)
+radio2 = tk.Radiobutton(root, text="Opción 2", value=2)
+radio1.pack()
+radio2.pack()
+
+lista = tk.Listbox(root)
+lista.insert(1, "Elemento 1")
+lista.insert(2, "Elemento 2")
+lista.pack()
+
+
+Colocación de widgets
+--------------------------------
+widget.pack()                   # Coloca automáticamente (arriba/abajo)
+widget.grid(row=0, column=0)    # Coloca en una cuadrícula
+widget.place(x=50, y=100)       # Coloca en coordenadas exactas
+
+
+Variables de Tkinter
+--------------------------------
+var_texto = tk.StringVar()
+entry = tk.Entry(root, textvariable=var_texto)
+entry.pack()
+
+print(var_texto.get())          # Obtener valor
+var_texto.set("Nuevo valor")    # Cambiar valor
+
+
+Menús
+--------------------------------
+menu_bar = tk.Menu(root)
+root.config(menu=menu_bar)
+
+file_menu = tk.Menu(menu_bar, tearoff=0)
+file_menu.add_command(label="Abrir")
+file_menu.add_command(label="Guardar")
+file_menu.add_separator()
+file_menu.add_command(label="Salir", command=root.quit)
+
+menu_bar.add_cascade(label="Archivo", menu=file_menu)
+
+
+Ventanas emergentes (messagebox)
+--------------------------------
+from tkinter import messagebox
+
+messagebox.showinfo("Info", "Mensaje informativo")
+messagebox.showwarning("Alerta", "Cuidado!")
+messagebox.showerror("Error", "Algo salió mal")
+
+
+Colores y estilos
+--------------------------------
+label = tk.Label(root, text="Texto rojo", fg="red", bg="black", font=("Arial", 14))
+label.pack()
+
+boton = tk.Button(root, text="Grande", font=("Helvetica", 16), bg="blue", fg="white")
+boton.pack()
+
+
+Canvas (dibujos)
+--------------------------------
+canvas = tk.Canvas(root, width=200, height=200, bg="white")
+canvas.pack()
+canvas.create_line(0, 0, 200, 200, fill="red", width=2)
+canvas.create_rectangle(50, 50, 150, 150, fill="blue")
+
+
+Ejemplo completo
+--------------------------------
+import tkinter as tk
+from tkinter import messagebox
+
+def saludar():
+    nombre = entrada.get()
+    messagebox.showinfo("Saludo", f"Hola, {nombre}!")
+
+root = tk.Tk()
+root.title("Ejemplo Tkinter")
+root.geometry("300x200")
+
+tk.Label(root, text="Escribe tu nombre:").pack()
+entrada = tk.Entry(root)
+entrada.pack()
+
+tk.Button(root, text="Saludar", command=saludar).pack()
+
+root.mainloop()
